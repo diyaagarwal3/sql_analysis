@@ -1,18 +1,102 @@
-sql_analysis
-Superstore SQL Analysis
-Dataset:
-Kaggle Superstore Sales dataset (CSV)
-Tools:
-MySQL Workbench 8.0
-Steps Performed:
-1. Created database and table schema
-2. Imported CSV via Data Import Wizard
-3. Verified records using COUNT
-4. Applied filtering using WHERE
-5. Sorting using ORDER BY
-6. Aggregation using SUM, COUNT
-7. Group filtering using HAVING
-8. Exported summary to CSV
-Output Files:
-queries_task3.sql
-sales_summary.csv
+1. Verify Import & Data View
+
+Query:
+
+SELECT * FROM superstore_orders LIMIT 10;
+
+
+Meaning: Shows first 10 rows to confirm data loaded correctly.
+
+2. Count Total Records
+
+Query:
+
+SELECT COUNT(*) FROM superstore_orders;
+
+
+Meaning: Confirms total rows imported match CSV file row count.
+
+3. Filter Records (WHERE Clause)
+
+Query:
+
+SELECT * FROM superstore_orders
+WHERE category = 'Technology';
+
+
+Meaning: Filters all records belonging to the Technology category.
+
+4. Sort Data (ORDER BY Clause)
+
+Query:
+
+SELECT product_name, sales
+FROM superstore_orders
+ORDER BY sales DESC
+LIMIT 10;
+
+
+Meaning: Shows top 10 products with highest sales.
+
+5. Grouping & Aggregation (GROUP BY + SUM & COUNT)
+
+Query 1: Total Sales by Category
+
+SELECT category, SUM(sales) AS total_sales
+FROM superstore_orders
+GROUP BY category;
+
+
+Meaning: Summarizes total revenue per category.
+
+Query 2: Profit by Region
+
+SELECT region, SUM(profit) AS total_profit
+FROM superstore_orders
+GROUP BY region;
+
+
+Meaning: Shows which regions are most profitable.
+
+Query 3: Order Count by Segment
+
+SELECT segment, COUNT(*) AS total_orders
+FROM superstore_orders
+GROUP BY segment;
+
+
+Meaning: Shows number of orders from each market segment.
+
+6. Filtered Aggregation (HAVING Clause)
+
+Query:
+
+SELECT category, SUM(sales) AS total_sales
+FROM superstore_orders
+GROUP BY category
+HAVING SUM(sales) > 100000;
+
+
+Meaning: Displays only categories generating more than 100K revenue.
+
+7. Date Range Filtering (BETWEEN Clause)
+
+Query:
+
+SELECT *
+FROM superstore_orders
+WHERE order_date BETWEEN '2017-01-01' AND '2017-01-31';
+
+
+Meaning: Returns orders placed in January 2017.
+
+8. Pattern Search (LIKE Clause)
+
+Query:
+
+SELECT *
+FROM superstore_orders
+WHERE customer_name LIKE 'A%';
+
+
+Meaning: Finds customers whose names start with ‘A’.
